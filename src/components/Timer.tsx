@@ -15,9 +15,7 @@ const getCurrentTime = () => {
 function Timer() {
   const duration = useSelector(getTimerDuration);
   const start = useSelector(getTimerStart);
-  const [currentTime, setCurrentTime] = useState<DateTime | null>(
-    getCurrentTime(),
-  );
+  const [currentTime, setCurrentTime] = useState<DateTime | null>();
 
   useEffect(() => {
     if (!start) {
