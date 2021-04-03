@@ -63,7 +63,10 @@ function CountdownTimer() {
 
   const getRemainingDuration = () => {
     const elapsed = getElapsedDuration();
-    let remaining = limit.minus(elapsed);
+    let remaining = limit
+      .minus(elapsed)
+      .shiftTo('hours', 'minutes', 'seconds', 'milliseconds')
+      .normalize();
 
     if (remaining.as('milliseconds') <= 0) {
       if (!ended && limit.as('milliseconds') !== 0) {
@@ -71,6 +74,8 @@ function CountdownTimer() {
       }
       return Duration.fromMillis(0);
     }
+
+    console.log(remaining);
 
     if (remaining.get('milliseconds') > 0) {
       remaining = remaining.set({
