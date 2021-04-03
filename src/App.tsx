@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Timer from './components/Timer';
+import TimerResetButton from './components/TimerResetButton';
 import TimerStartStopButton from './components/TimerStartStopButton';
 
 const Page = styled.div({
@@ -23,6 +24,7 @@ function App() {
   return (
     <Page>
       <Container>
+        <TimerResetButton />
         <Timer />
         <TimerStartStopButton />
       </Container>
