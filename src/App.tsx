@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import TimeLimitInput from './components/TimeLimitInput';
 import Timer from './components/Timer';
 import TimerResetButton from './components/TimerResetButton';
 import TimerStartStopButton from './components/TimerStartStopButton';
@@ -26,6 +27,7 @@ function App() {
       <Container>
         <TimerResetButton />
         <Timer />
+        <TimeLimitInput />
         <TimerStartStopButton />
       </Container>
     </Page>

@@ -11,3 +11,7 @@ export const getTimerDuration = createSelector(
   (state: RootState) => state.timerState.duration,
   Duration.fromISO,
 );
+export const getTimeLimit = createSelector(
+  (state: RootState) => state.timerState.limit,
+  Duration.fromISO,
+);

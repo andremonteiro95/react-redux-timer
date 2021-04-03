@@ -1,13 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateTime, Duration } from 'luxon';
 
 export interface TimerState {
   duration: string;
+  limit: string;
   start?: string;
 }
 
 const initialState: TimerState = {
   duration: Duration.fromMillis(0).toISO(),
+  limit: Duration.fromMillis(0).toISO(),
   start: undefined,
 };
 
@@ -28,10 +30,18 @@ const timerSlice = createSlice({
         state.start = undefined;
       }
     },
+    setTimeLimit: (state, { payload }: PayloadAction<string>) => {
+      state.limit = payload;
+    },
   },
 });
 
-export const { resetTimer, startTimer, stopTimer } = timerSlice.actions;
+export const {
+  resetTimer,
+  startTimer,
+  stopTimer,
+  setTimeLimit,
+} = timerSlice.actions;
 
 const timerReducer = timerSlice.reducer;
 export default timerReducer;
