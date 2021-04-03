@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import timerReducer from './timerSlice';
+import timerReducer, { TimerState } from './timerSlice';
+
+export interface RootState {
+  timerState: TimerState;
+}
 
 const rootReducer = combineReducers({
-  timer: timerReducer,
+  timerState: timerReducer,
 });
 
 export default rootReducer;
