@@ -2,11 +2,7 @@ import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import {
-  getTimerDuration,
-  getTimerStart,
-  isTimerRunning,
-} from '../redux/selectors';
+import { getTimerDuration, getTimerStart } from '../redux/selectors';
 
 const Text = styled.span({
   fontSize: '30px',
@@ -18,29 +14,37 @@ const getCurrentTime = () => {
 
 function Timer() {
   const duration = useSelector(getTimerDuration);
-  const running = useSelector(isTimerRunning);
   const start = useSelector(getTimerStart);
   const [currentTime, setCurrentTime] = useState<DateTime | null>(
     getCurrentTime(),
   );
 
   useEffect(() => {
-    if (!running) {
+    if (!start) {
       setCurrentTime(null);
       return () => {};
     }
 
-    setCurrentTime(getCurrentTime());
-    const interval = setInterval(() => {
+    let interval: NodeJS.Timeout;
+    const timeoutms =
+      (1000 + start.get('millisecond') - getCurrentTime().get('millisecond')) %
+      1000;
+    const timeout = setTimeout(() => {
       setCurrentTime(getCurrentTime());
-    }, 1000);
+
+      interval = setInterval(() => {
+        setCurrentTime(getCurrentTime());
+      }, 1000);
+    }, timeoutms);
+
     return () => {
+      clearTimeout(timeout);
       clearInterval(interval);
     };
-  }, [running]);
+  }, [start]);
 
   const getElapsedDuration = () => {
-    if (!running || !start) {
+    if (!start) {
       return duration;
     }
 
