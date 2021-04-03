@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import CountdownTimer from './components/CountdownTimer';
 import TimeLimitInput from './components/TimeLimitInput';
 import Timer from './components/Timer';
 import TimerResetButton from './components/TimerResetButton';
@@ -13,6 +14,7 @@ const Page = styled.div({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: '30px',
 });
 
 const Container = styled.div({
@@ -27,8 +29,11 @@ function App() {
       <Container>
         <TimerResetButton />
         <Timer />
-        <TimeLimitInput />
         <TimerStartStopButton />
+      </Container>
+      <Container>
+        <TimeLimitInput />
+        <CountdownTimer />
       </Container>
     </Page>
   );
