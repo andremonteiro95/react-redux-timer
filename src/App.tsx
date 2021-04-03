@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import Timer from './components/Timer';
+import TimerStartStopButton from './components/TimerStartStopButton';
+
+const Page = styled.div({
+  minHeight: '100vh',
+  color: 'white',
+  backgroundColor: '#282c34',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const Container = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '30px',
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Page>
+      <Container>
+        <Timer />
+        <TimerStartStopButton />
+      </Container>
+    </Page>
   );
 }
 
