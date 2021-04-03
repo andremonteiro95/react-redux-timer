@@ -1,19 +1,20 @@
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { isTimerRunning } from '../redux/selectors';
+import { getTimerStart, isTimerRunning } from '../redux/selectors';
 
 const Text = styled.span({
   fontSize: '30px',
 });
 
 const getCurrentTime = () => {
-  return DateTime.now().toFormat('HH:mm:ss');
+  return DateTime.now();
 };
 
 function Timer() {
   const running = useSelector(isTimerRunning);
+  const start = useSelector(getTimerStart);
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
 
   useEffect(() => {
@@ -30,7 +31,17 @@ function Timer() {
     };
   }, [running]);
 
-  return <Text>{currentTime}</Text>;
+  const getElapsedDuration = () => {
+    if (!start) {
+      return Duration.fromMillis(0);
+    }
+
+    return currentTime.diff(start);
+  };
+
+  const elapsedDurationFormatted = getElapsedDuration().toFormat('hh:mm:ss');
+
+  return <Text>{elapsedDurationFormatted}</Text>;
 }
 
 export default Timer;
